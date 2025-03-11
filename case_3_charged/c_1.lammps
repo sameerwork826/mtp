@@ -1,0 +1,89 @@
+# LAMMPS input script for charged polymer mixture simulation
+
+# Initialization
+units           lj
+atom_style      full       # Changed from 'molecular' to 'full' to include charges
+boundary        p p p
+read_data       C:\Users\nande\Desktop\mtp\ps_c_5_24.data
+
+
+# Force field definitions 
+bond_style      fene
+bond_coeff      1 30.0 1.5 1.0 1.0 # k=30, r0=1.5, e=1, sigma=1
+
+# Non-bonded interactions: LJ + Coulombic
+pair_style      lj/cut/coul/long 2.5 10.0  # LJ cutoff 2.5, Coulombic cutoff 10.0
+pair_modify     shift yes  # Shift LJ potential to 0 at cutoff
+
+# Initial interaction parameters
+pair_coeff      * * 1.0 1.0  # A-A interactions
+
+# Coulombic solver (PPPM)
+kspace_style    pppm 1.0e-4
+
+dielectric      1.0        # Dielectric constant (default=1.0 for reduced units)
+
+special_bonds   lj 0.0 1.0 1.0 coul 0.0 1.0 1.0  # Updated special_bonds for coulombic
+
+# Neighbor lists
+neighbor        0.3 bin 
+neigh_modify    every 1 delay 0 check yes
+
+# System groups
+group           type_A type 1
+group           type_B type 2
+
+# Energy minimization
+minimize        1.0e-4 1.0e-6 1000 10000
+
+# Set up time integration
+timestep        0.005
+
+# Temperature control
+variable        temp equal 1.0
+fix             1 all langevin ${temp} ${temp} 100.0 699483
+fix             2 all nve
+
+# Output settings
+thermo_style    custom step temp pe ke etotal press
+thermo          1000   # Print every 1000 steps
+
+# Equilibration run 
+dump            eq_dump all custom 1000 equilibration.lammpstrj id type q xu yu zu
+dump_modify     eq_dump sort id 
+
+# Equilibration run
+run             50000
+
+# Unfix and undump equilibration outputs
+undump          eq_dump
+
+reset_timestep 0
+
+# Compute properties
+compute         msd_all all msd com yes
+
+# Extra compute for charged system
+compute         charge_dist all property/atom q
+compute         qtotal all reduce sum c_charge_dist
+compute         pe_coul all pe kspace
+compute         pe_pair all pe pair
+
+# Output data files
+print "Time MSD_all" file msd_all.dat
+
+# Use fix ave/time to compute time-averaged values
+fix             msd_avg_all all ave/time 100 1 100 c_msd_all[4] file msd_all.dat mode scalar
+
+# Add charge tracking
+fix             coulombic_energy all ave/time 100 1 100 c_pe_coul c_pe_pair c_qtotal file coulombic.dat mode scalar
+
+# Production run with single dump file
+dump            prod_dump all custom 1000 production.lammpstrj id type q xu yu zu
+dump_modify     prod_dump sort id
+
+# Run production
+run             100000
+                        
+# Write final configuration
+write_data      final_config.data

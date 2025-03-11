@@ -1,0 +1,115 @@
+# LAMMPS input script for polymer mixture simulation
+
+# Initialization
+units           lj
+atom_style      molecular
+boundary        p p p
+read_data       C:\Users\nande\Desktop\mtp\data_files\polymer_system_48.data
+
+# Force field definitions
+bond_style      fene
+bond_coeff      1 30.0 1.5 1.0 1.0 # k=30, r0=1.5, e=1, sigma=1
+
+# Non-bonded interactions
+pair_style      lj/cut 2.5 # Cutoff distance
+pair_modify     shift yes # Shift LJ potential to 0 at cutoff
+
+# Initial interaction parameters (equilibration)
+#pair_coeff I J epsilon sigma 
+pair_coeff      * * 1.0 1.0  # A-A interactions
+# pair_coeff      2 2 1.0 1.0  # B-B interactions
+# pair_coeff      1 2 1.0 1.0  # A-B interactions
+
+special_bonds   lj 0.0 1.0 1.0 # Exclude LJ for 1-2
+
+# Neighbor lists
+neighbor        0.3 bin 
+neigh_modify    every 1 delay 0 check yes
+
+# System groups
+group           type_A type 1
+group           type_B type 2
+
+# Energy minimization
+minimize        1.0e-4 1.0e-6 1000 10000
+
+# Set up time integration
+timestep        0.005
+
+# Temperature control
+variable        temp equal 1.0
+fix             1 all langevin ${temp} ${temp} 100.0 699483
+fix             2 all nve
+
+# Output settings
+thermo_style    custom step 
+thermo          1000   # Print every 1000 steps (one timestep=0.005)
+
+# Equilibration run 
+dump            eq_dump all custom 1000 equilibration.lammpstrj id type xu yu zu
+dump_modify     eq_dump sort id 
+
+
+# Equilibration run
+run             50000
+
+
+# Unfix and undump equilibration outputs
+
+undump          eq_dump
+
+reset_timestep 0
+
+# Change interaction parameters for production
+# pair_coeff      1 2 0.5 1.0  # Modify A-B interactions
+ 
+
+#Compute properties
+compute         rg_A type_A gyration
+compute         rg_B type_B gyration
+compute         rg_all all gyration
+
+compute         msd_A type_A msd com yes
+compute         msd_B type_B msd com yes
+compute         msd_all all msd com yes
+
+compute         RDF all rdf 50 1 1 2 2 1 2 #new
+
+
+
+# Start file output with headers
+ print "Time MSD_A" file msd_A.dat
+ print "Time MSD_B" file msd_B.dat
+
+print "Time MSD_all" file msd_all.dat #new
+
+print "Time Rg_A" file rg_A.dat
+print "Time Rg_B" file rg_B.dat
+
+print "Time Rg_all" file rg_all.dat #new
+
+# Use fix ave/time to compute time-averaged values for MSD and Rg
+ fix msd_avg_A type_A ave/time 100 1 100 c_msd_A[4] file msd_A.dat mode scalar
+ fix msd_avg_B type_B ave/time 100 1 100 c_msd_B[4] file msd_B.dat mode scalar
+ fix msd_avg_all all ave/time 100 1 100 c_msd_all[4]  file msd_all.dat mode scalar#new
+
+fix rg_avg_A type_A ave/time 100 1 100 c_rg_A file rg_A.dat
+fix rg_avg_B type_B ave/time 100 1 100 c_rg_B file rg_B.dat
+fix rg_avg_all all ave/time 100 1 100 c_rg_all file rg_all.dat  #new
+
+
+# Production run with single dump file
+
+dump prod_dump all custom 1000 production.lammpstrj id type xu yu zu
+dump_modify prod_dump sort id
+
+
+# RDF averaging for production
+fix rdf_avg_prod all ave/time 100 1 100 c_RDF[*] file rdf_production.avg mode vector
+
+# Run production
+run 100000
+                        
+# Write final configuration
+write_data final_config.data
+ 
