@@ -1,33 +1,30 @@
-# LAMMPS input script for charged polymer mixture simulation
 
 # Initialization
 units           lj
-atom_style      full       # Changed from 'molecular' to 'full' to include charges
+atom_style      full
 boundary        p p p
-read_data       C:\Users\nande\Desktop\mtp\ps_c_5_24.data
-
+read_data       C:\Users\nande\Desktop\mtp\case_3_charged\poly_data_file\ps_c_24_10.data
 
 # Force field definitions 
 bond_style      fene
 bond_coeff      1 30.0 1.5 1.0 1.0 # k=30, r0=1.5, e=1, sigma=1
 
 # Non-bonded interactions: LJ + Coulombic
-pair_style      lj/cut/coul/long 2.5 10.0  # LJ cutoff 2.5, Coulombic cutoff 10.0
-pair_modify     shift yes  # Shift LJ potential to 0 at cutoff
+pair_style      lj/cut/coul/long 2.5 10.0
+pair_modify     shift yes
 
 # Initial interaction parameters
-pair_coeff      * * 1.0 1.0  # A-A interactions
+pair_coeff      * * 1.0 1.0
 
-# Coulombic solver (PPPM)
+# Coulombic solver
 kspace_style    pppm 1.0e-4
+dielectric      1.0
 
-dielectric      1.0        # Dielectric constant (default=1.0 for reduced units)
-
-special_bonds   lj 0.0 1.0 1.0 coul 0.0 1.0 1.0  # Updated special_bonds for coulombic
+special_bonds   lj 0.0 1.0 1.0 coul 0.0 1.0 1.0
 
 # Neighbor lists
-neighbor        0.3 bin 
-neigh_modify    every 1 delay 0 check yes
+neighbor        0.5 bin 
+neigh_modify    one 10000 every 1 delay 1 check yes
 
 # System groups
 group           type_A type 1
@@ -45,45 +42,91 @@ fix             1 all langevin ${temp} ${temp} 100.0 699483
 fix             2 all nve
 
 # Output settings
-thermo_style    custom step temp pe ke etotal press
-thermo          1000   # Print every 1000 steps
+thermo_style    custom step 
+thermo          1000
 
-# Equilibration run 
-dump            eq_dump all custom 1000 equilibration.lammpstrj id type q xu yu zu
+
+
+# ---- EQUILIBRATION RUN ----
+dump            eq_dump all custom 1000 equilibration.lammpstrj id type q xu yu zu 
 dump_modify     eq_dump sort id 
 
-# Equilibration run
 run             50000
 
-# Unfix and undump equilibration outputs
 undump          eq_dump
-
 reset_timestep 0
 
-# Compute properties
-compute         msd_all all msd com yes
+pair_coeff      1 2 0.5 1.0
 
-# Extra compute for charged system
-compute         charge_dist all property/atom q
-compute         qtotal all reduce sum c_charge_dist
-compute         pe_coul all pe kspace
-compute         pe_pair all pe pair
 
-# Output data files
-print "Time MSD_all" file msd_all.dat
+# Compute RDFs between different types
+# compute         rdf_all all rdf 100 1 2
 
-# Use fix ave/time to compute time-averaged values
-fix             msd_avg_all all ave/time 100 1 100 c_msd_all[4] file msd_all.dat mode scalar
+# # Compute gyration
+# compute     rg_all all gyration
 
-# Add charge tracking
-fix             coulombic_energy all ave/time 100 1 100 c_pe_coul c_pe_pair c_qtotal file coulombic.dat mode scalar
+# # MSD for dynamics
+# compute         msd_all all msd com yes
 
-# Production run with single dump file
-dump            prod_dump all custom 1000 production.lammpstrj id type q xu yu zu
+# # Charge distribution
+# compute         charge_dist all property/atom q
+# compute         qtotal all reduce sum c_charge_dist
+# compute         pe_coul all pe kspace
+# compute         pe_pair all pe pair
+
+
+# Cluster analysis
+compute cluster all cluster/atom 2.5
+compute cc1 all chunk/atom c_cluster
+compute cluster_stats all property/chunk cc1 count
+compute cluster_sizes all reduce max c_cluster
+
+# Spatial grid for domain analysis
+compute grid all chunk/atom bin/3d x lower 1.0 y lower 1.0 z lower 1.0 units box
+
+# Count particles of each type in grid cells
+compute count_A type_A chunk/atom c_grid
+compute count_B type_B chunk/atom c_grid
+
+# Get counts per chunk for each type
+compute         ncountA all property/chunk count_A count
+compute         ncountB all property/chunk count_B count
+
+# Average number of particles in each cell over time
+fix domain_grid_A all ave/time 1000 1 1000 c_ncountA file domain_grid_A.dat mode vector
+fix domain_grid_B all ave/time 1000 1 1000 c_ncountB file domain_grid_B.dat mode vector
+
+
+
+# ---- OUTPUT FILES ----
+
+# Output number of chunks (grid cells) and their properties
+compute         grid_props all property/chunk grid count coord1 coord2 coord3
+fix             grid_output all ave/time 1000 1 1000 c_grid_props[1] c_grid_props[2] c_grid_props[3] c_grid_props[4] file grid_info.dat mode vector
+
+# # RDF output
+# fix             rdf_all all ave/time 1000 1 1000  c_rdf_all[*] file rdf_analysis.dat mode vector
+# #RG output
+# fix             rg_avg_all all ave/time 100 1 100 c_rg_all file rg_all.dat
+# # Coulombic data
+# #fix             coulombic_energy all ave/time 1000 1 1000 c_pe_coul c_pe_pair c_qtotal file coulombic.dat mode scalar
+# # MSD for diffusion
+# fix             msd_avg_all all ave/time 1000 1 1000 c_msd_all[4] file msd_all.dat mode scalar
+
+# Output cluster analysis data
+fix clust_dist all ave/time 1000 1 1000 c_cluster_stats file cluster_dist.dat mode vector
+
+# Largest cluster size over time
+fix             max_clust all ave/time 1000 1 1000 c_cluster_sizes file max_cluster.dat mode scalar
+
+
+# ---- PRODUCTION RUN ----
+dump            prod_dump all custom 1000 production.lammpstrj id type q xu yu zu 
 dump_modify     prod_dump sort id
 
-# Run production
 run             100000
                         
 # Write final configuration
-write_data      final_config.data
+#write_data      final_config.data
+
+

@@ -1,0 +1,465 @@
+LAMMPS (27 Jun 2024)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Loaded 1 plugins from C:\Users\nande\AppData\Local\LAMMPS 64-bit 27Jun2024 with GUI\plugins
+# LAMMPS input script for polymer mixture simulation
+
+# Initialization
+units           lj
+atom_style      molecular
+boundary        p p p
+read_data       C:\Users\nande\Desktop\mtp\data_files\polymer_system_12.data
+Reading data file ...
+  orthogonal box = (0 0 0) to (32 32 32)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  720 atoms
+  scanning bonds ...
+  1 = max bonds/atom
+  orthogonal box = (0 0 0) to (32 32 32)
+  1 by 1 by 1 MPI processor grid
+  reading bonds ...
+  660 bonds
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0       
+  special bond factors coul:  0        0        0       
+     2 = max # of 1-2 neighbors
+     2 = max # of 1-3 neighbors
+     4 = max # of 1-4 neighbors
+     6 = max # of special neighbors
+  special bonds CPU = 0.001 seconds
+  read_data CPU = 0.010 seconds
+
+# Force field definitions
+bond_style      fene
+bond_coeff      1 30.0 1.5 1.0 1.0 # k=30, r0=1.5, e=1, sigma=1
+
+# Non-bonded interactions
+pair_style      lj/cut 2.5 # Cutoff distance
+pair_modify     shift yes # Shift LJ potential to 0 at cutoff
+
+# Initial interaction parameters (equilibration)
+#pair_coeff I J epsilon sigma
+pair_coeff      * * 1.0 1.0  # A-A interactions
+# pair_coeff      2 2 1.0 1.0  # B-B interactions
+# pair_coeff      1 2 1.0 1.0  # A-B interactions
+
+special_bonds   lj 0.0 1.0 1.0 # Exclude LJ for 1-2
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        1        1       
+  special bond factors coul:  0        0        0       
+     2 = max # of 1-2 neighbors
+     2 = max # of 1-3 neighbors
+     4 = max # of 1-4 neighbors
+     6 = max # of special neighbors
+  special bonds CPU = 0.001 seconds
+
+# Neighbor lists
+neighbor        0.3 bin
+neigh_modify    every 1 delay 0 check yes
+
+# System groups
+group           type_A type 1
+360 atoms in group type_A
+group           type_B type 2
+360 atoms in group type_B
+
+# Energy minimization
+minimize        1.0e-4 1.0e-6 1000 10000
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+
+- Type Label Framework: https://doi.org/10.1021/acs.jpcb.3c08419
+
+@Article{Gissinger24,
+ author = {Jacob R. Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S. Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and Ellad B. Tadmor},
+ title = {Type Label Framework for Bonded Force Fields in LAMMPS},
+ journal = {J. Phys. Chem. B},
+ year =    2024,
+ volume =  128,
+ number =  13,
+ pages =   {3282–-3297}
+}
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.8
+  ghost atom cutoff = 2.8
+  binsize = 1.4, bins = 23 23 23
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 7.54 | 7.54 | 7.54 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   0             -0.01500532     24.11274       24.097735     -0.52610787   
+        21   0             -0.050848754    18.519633      18.468784     -0.0088181555 
+Loop time of 0.002698 on 1 procs for 21 steps with 720 atoms
+
+0.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+      24.0977346299026    18.469139511577   18.4687843703802
+  Force two-norm initial, final = 777.27912 14.906815
+  Force max component initial, final = 71.102682 0.91909855
+  Final line search alpha, max atom move = 0.034211071 0.031443346
+  Iterations, force evaluations = 21 37
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.000406   | 0.000406   | 0.000406   |   0.0 | 15.05
+Bond    | 0.00112    | 0.00112    | 0.00112    |   0.0 | 41.51
+Neigh   | 0.000495   | 0.000495   | 0.000495   |   0.0 | 18.35
+Comm    | 0.000102   | 0.000102   | 0.000102   |   0.0 |  3.78
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.000575   |            |       | 21.31
+
+Nlocal:            720 ave         720 max         720 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:            330 ave         330 max         330 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:            720 ave         720 max         720 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 720
+Ave neighs/atom = 1
+Ave special neighs/atom = 5
+Neighbor list builds = 5
+Dangerous builds = 0
+
+# Set up time integration
+timestep        0.005
+
+# Temperature control
+variable        temp equal 1.0
+fix             1 all langevin ${temp} ${temp} 100.0 699483
+fix             1 all langevin 1 ${temp} 100.0 699483
+fix             1 all langevin 1 1 100.0 699483
+fix             2 all nve
+
+# Output settings
+thermo_style    custom step
+thermo          1000   # Print every 1000 steps (one timestep=0.005)
+
+# Equilibration run
+dump            eq_dump all custom 1000 equilibration.lammpstrj id type xu yu zu
+dump_modify     eq_dump sort id
+
+
+# Equilibration run
+run             50000
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+Per MPI rank memory allocation (min/avg/max) = 6.415 | 6.415 | 6.415 Mbytes
+   Step    
+        21 
+      1000 
+      2000 
+      3000 
+      4000 
+      5000 
+      6000 
+      7000 
+      8000 
+      9000 
+     10000 
+     11000 
+     12000 
+     13000 
+     14000 
+     15000 
+     16000 
+     17000 
+     18000 
+     19000 
+     20000 
+     21000 
+     22000 
+     23000 
+     24000 
+     25000 
+     26000 
+     27000 
+     28000 
+     29000 
+     30000 
+     31000 
+     32000 
+     33000 
+     34000 
+     35000 
+     36000 
+     37000 
+     38000 
+     39000 
+     40000 
+     41000 
+     42000 
+     43000 
+     44000 
+     45000 
+     46000 
+     47000 
+     48000 
+     49000 
+     50000 
+     50021 
+Loop time of 9.69163 on 1 procs for 50000 steps with 720 atoms
+
+Performance: 2228728.412 tau/day, 5159.094 timesteps/s, 3.715 Matom-step/s
+97.9% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 4.6212     | 4.6212     | 4.6212     |   0.0 | 47.68
+Bond    | 0.30197    | 0.30197    | 0.30197    |   0.0 |  3.12
+Neigh   | 2.8328     | 2.8328     | 2.8328     |   0.0 | 29.23
+Comm    | 0.15776    | 0.15776    | 0.15776    |   0.0 |  1.63
+Output  | 0.085674   | 0.085674   | 0.085674   |   0.0 |  0.88
+Modify  | 1.5379     | 1.5379     | 1.5379     |   0.0 | 15.87
+Other   |            | 0.1543     |            |       |  1.59
+
+Nlocal:            720 ave         720 max         720 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:            515 ave         515 max         515 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:          14970 ave       14970 max       14970 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 14970
+Ave neighs/atom = 20.791667
+Ave special neighs/atom = 5
+Neighbor list builds = 6309
+Dangerous builds = 0
+
+
+# Unfix and undump equilibration outputs
+
+undump          eq_dump
+
+reset_timestep 0
+
+# Change interaction parameters for production
+# pair_coeff      1 2 0.5 1.0  # Modify A-B interactions
+
+
+#Compute properties
+compute         rg_A type_A gyration
+compute         rg_B type_B gyration
+compute         rg_all all gyration
+
+compute         msd_A type_A msd com yes
+compute         msd_B type_B msd com yes
+compute         msd_all all msd com yes
+
+compute         RDF all rdf 50 1 1 2 2 1 2 #new
+
+
+
+# Start file output with headers
+ print "Time MSD_A" file msd_A.dat
+Time MSD_A
+ print "Time MSD_B" file msd_B.dat
+Time MSD_B
+
+print "Time MSD_all" file msd_all.dat #new
+Time MSD_all
+
+print "Time Rg_A" file rg_A.dat
+Time Rg_A
+print "Time Rg_B" file rg_B.dat
+Time Rg_B
+
+print "Time Rg_all" file rg_all.dat #new
+Time Rg_all
+
+# Use fix ave/time to compute time-averaged values for MSD and Rg
+ fix msd_avg_A type_A ave/time 100 1 100 c_msd_A[4] file msd_A.dat mode scalar
+ fix msd_avg_B type_B ave/time 100 1 100 c_msd_B[4] file msd_B.dat mode scalar
+ fix msd_avg_all all ave/time 100 1 100 c_msd_all[4]  file msd_all.dat mode scalar#new
+
+fix rg_avg_A type_A ave/time 100 1 100 c_rg_A file rg_A.dat
+fix rg_avg_B type_B ave/time 100 1 100 c_rg_B file rg_B.dat
+fix rg_avg_all all ave/time 100 1 100 c_rg_all file rg_all.dat  #new
+
+
+# Production run with single dump file
+
+dump prod_dump all custom 1000 production.lammpstrj id type xu yu zu
+dump_modify prod_dump sort id
+
+
+# RDF averaging for production
+fix rdf_avg_prod all ave/time 100 1 100 c_RDF[*] file rdf_production.avg mode vector
+
+# Run production
+run 100000
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.8
+  ghost atom cutoff = 2.8
+  binsize = 1.4, bins = 23 23 23
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 7.931 | 7.931 | 7.931 Mbytes
+   Step    
+         0 
+      1000 
+      2000 
+      3000 
+      4000 
+      5000 
+      6000 
+      7000 
+      8000 
+      9000 
+     10000 
+     11000 
+     12000 
+     13000 
+     14000 
+     15000 
+     16000 
+     17000 
+     18000 
+     19000 
+     20000 
+     21000 
+     22000 
+     23000 
+     24000 
+     25000 
+     26000 
+     27000 
+     28000 
+     29000 
+     30000 
+     31000 
+     32000 
+     33000 
+     34000 
+     35000 
+     36000 
+     37000 
+     38000 
+     39000 
+     40000 
+     41000 
+     42000 
+     43000 
+     44000 
+     45000 
+     46000 
+     47000 
+     48000 
+     49000 
+     50000 
+     51000 
+     52000 
+     53000 
+     54000 
+     55000 
+     56000 
+     57000 
+     58000 
+     59000 
+     60000 
+     61000 
+     62000 
+     63000 
+     64000 
+     65000 
+     66000 
+     67000 
+     68000 
+     69000 
+     70000 
+     71000 
+     72000 
+     73000 
+     74000 
+     75000 
+     76000 
+     77000 
+     78000 
+     79000 
+     80000 
+     81000 
+     82000 
+     83000 
+     84000 
+     85000 
+     86000 
+     87000 
+     88000 
+     89000 
+     90000 
+     91000 
+     92000 
+     93000 
+     94000 
+     95000 
+     96000 
+     97000 
+     98000 
+     99000 
+    100000 
+Loop time of 29.732 on 1 procs for 100000 steps with 720 atoms
+
+Performance: 1452979.563 tau/day, 3363.379 timesteps/s, 2.422 Matom-step/s
+98.1% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 15.885     | 15.885     | 15.885     |   0.0 | 53.43
+Bond    | 0.61814    | 0.61814    | 0.61814    |   0.0 |  2.08
+Neigh   | 8.552      | 8.552      | 8.552      |   0.0 | 28.76
+Comm    | 0.39454    | 0.39454    | 0.39454    |   0.0 |  1.33
+Output  | 0.17873    | 0.17873    | 0.17873    |   0.0 |  0.60
+Modify  | 3.7598     | 3.7598     | 3.7598     |   0.0 | 12.65
+Other   |            | 0.3442     |            |       |  1.16
+
+Nlocal:            720 ave         720 max         720 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:             38 ave          38 max          38 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:          17524 ave       17524 max       17524 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 17524
+Ave neighs/atom = 24.338889
+Ave special neighs/atom = 5
+Neighbor list builds = 12504
+Dangerous builds = 0
+
+# Write final configuration
+write_data final_config.data
+System init for write_data ...
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+WARNING: Not all mixed pair coeffs generated from mixing. Use write_data with 'pair ij' option to store all pair coeffs. (src/write_data.cpp:368)
+ 
+Total wall time: 0:00:39
