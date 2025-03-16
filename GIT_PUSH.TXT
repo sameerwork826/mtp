@@ -1,0 +1,118 @@
+# How to Update Your GitHub Repository in the Future
+
+When you make changes to your code in the future and want to update your GitHub repository, follow these simple steps:
+
+## Step 1: Make Your Changes
+First, make whatever changes you need to your code files.
+
+## Step 2: Check Status
+Check which files have been modified:
+
+```
+git status
+```
+
+This command shows you:
+- Modified files (changes not staged)
+- New files (untracked)
+- Deleted files
+
+## Step 3: Add Changes
+Add the changes you want to commit:
+
+```
+git add .
+```
+
+This adds all changes. If you only want to add specific files:
+
+```
+git add path/to/specific/file.py
+```
+
+## Step 4: Commit Changes
+Commit your changes with a descriptive message:
+
+```
+git commit -m "Brief description of what you changed"
+```
+
+Good commit messages explain WHY you made changes, not just WHAT you changed.
+
+## Step 5: Push to GitHub
+Push your committed changes to GitHub:
+
+```
+git push origin main
+```
+
+This uploads your changes to the remote repository on GitHub.
+
+## Example Workflow
+
+Let's say you modify the `domains.py` file to add a new analysis function:
+
+1. Make your changes to the file
+2. Check status:
+   ```
+   git status
+   ```
+   (You'll see `domains.py` listed as modified)
+3. Add the file:
+   ```
+   git add case_3_charged/py_scripts/domains.py
+   ```
+4. Commit with a message:
+   ```
+   git commit -m "Added new cluster analysis function to domains.py"
+   ```
+5. Push to GitHub:
+   ```
+   git push origin main
+   ```
+
+## Additional Useful Commands
+
+### Pull Latest Changes
+If you're working on multiple computers or with others, always pull the latest changes before starting work:
+
+```
+git pull origin main
+```
+
+### Create a New Branch
+For major features or experiments:
+
+```
+git checkout -b new-feature-name
+```
+
+Then push the branch:
+```
+git push origin new-feature-name
+```
+
+### View Commit History
+To see previous commits:
+
+```
+git log
+```
+
+### Discard Changes
+To discard changes to a file:
+
+```
+git restore path/to/file.py
+```
+
+## Best Practices
+
+1. **Commit Often**: Make small, focused commits rather than large ones
+2. **Pull Before Push**: Always pull the latest changes before pushing
+3. **Write Clear Commit Messages**: Explain why you made changes
+4. **Use Branches**: For major features, use separate branches
+5. **Review Changes**: Use `git diff` to review your changes before committing
+
+Following these steps will help you maintain a clean and organized GitHub repository as you continue to develop your project.
+         

@@ -4,8 +4,14 @@ This repository contains molecular dynamics simulation data and analysis scripts
 
 ## Repository Structure
 
-### Case 1: Only DN (Diblock Copolymer)
-- Analysis of diblock copolymer systems with varying chain lengths (8, 12, 16, 24, 32)
+### Case 1: Diffusion coeficient relation calulation 
+- Analysis of polymer systems with varying chain lengths (8, 12, 16, 24, 32)
+- Mean Square Displacement (MSD) analysis
+- Radius of Gyration (Rg) calculations
+- Radial Distribution Function (RDF) data
+
+### Case 2:Fixed Density for polymer 10 percent
+- Analysis of polymer systems with varying chain lengths (8, 12, 16, 24, 32)
 - Mean Square Displacement (MSD) analysis
 - Radius of Gyration (Rg) calculations
 - Radial Distribution Function (RDF) data
@@ -41,7 +47,7 @@ python domains.py
 ```
 
 ## Requirements
-- Python 3.x
+- Python 3.12
 - NumPy
 - Matplotlib
-- MDAnalysis (for some scripts) 
+- Ovito to run simulation dumps
