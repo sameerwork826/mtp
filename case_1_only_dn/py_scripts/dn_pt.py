@@ -4,8 +4,8 @@ from scipy.stats import linregress
 import glob
 
 # List of MSD files (ensure filenames match actual data)
-msd_files = ["msd_12.dat", "msd_16.dat", "msd_24.dat", "msd_32.dat"]
-monomer_counts = [12, 16, 24, 32]  # Corresponding N values
+msd_files = ["msd_8.dat", "msd_10.dat", "msd_12.dat", "msd_14.dat", "msd_16.dat", "msd_18.dat", "msd_20.dat", "msd_22.dat", "msd_24.dat", "msd_26.dat", "msd_28.dat", "msd_32.dat"]
+monomer_counts = [8,10,12,14, 16,18,20,22,24,26,28,32]  # Corresponding N values
 
 diffusion_constants = []  # Store computed D values
 

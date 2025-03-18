@@ -1,0 +1,545 @@
+LAMMPS (27 Jun 2024)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Loaded 1 plugins from C:\Users\nande\AppData\Local\LAMMPS 64-bit 27Jun2024 with GUI\plugins
+# LAMMPS input script for polymer mixture simulation
+
+# Initialization
+units           lj
+atom_style      molecular
+boundary        p p p
+read_data       C:\Users\nande\Desktop\mtp\case_1_only_dn\data_files\polymer_system_8.data
+Reading data file ...
+  orthogonal box = (0 0 0) to (32 32 32)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  480 atoms
+  scanning bonds ...
+  1 = max bonds/atom
+  orthogonal box = (0 0 0) to (32 32 32)
+  1 by 1 by 1 MPI processor grid
+  reading bonds ...
+  420 bonds
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0       
+  special bond factors coul:  0        0        0       
+     2 = max # of 1-2 neighbors
+     2 = max # of 1-3 neighbors
+     4 = max # of 1-4 neighbors
+     6 = max # of special neighbors
+  special bonds CPU = 0.001 seconds
+  read_data CPU = 0.009 seconds
+
+# Force field definitions
+bond_style      fene
+bond_coeff      1 30.0 1.5 1.0 1.0 # k=30, r0=1.5, e=1, sigma=1
+
+# Non-bonded interactions
+pair_style      lj/cut 2.5 # Cutoff distance
+pair_modify     shift yes # Shift LJ potential to 0 at cutoff
+
+# Initial interaction parameters (equilibration)
+#pair_coeff I J epsilon sigma
+pair_coeff      * * 1.0 1.0  # A-A interactions
+# pair_coeff      2 2 1.0 1.0  # B-B interactions
+# pair_coeff      1 2 1.0 1.0  # A-B interactions
+
+special_bonds   lj 0.0 1.0 1.0 # Exclude LJ for 1-2
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        1        1       
+  special bond factors coul:  0        0        0       
+     2 = max # of 1-2 neighbors
+     2 = max # of 1-3 neighbors
+     4 = max # of 1-4 neighbors
+     6 = max # of special neighbors
+  special bonds CPU = 0.001 seconds
+
+# Neighbor lists
+neighbor        0.3 bin
+neigh_modify    every 1 delay 0 check yes
+
+# System groups
+group           type_A type 1
+240 atoms in group type_A
+group           type_B type 2
+240 atoms in group type_B
+
+# Energy minimization
+minimize        1.0e-4 1.0e-6 1000 10000
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+
+- Type Label Framework: https://doi.org/10.1021/acs.jpcb.3c08419
+
+@Article{Gissinger24,
+ author = {Jacob R. Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S. Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and Ellad B. Tadmor},
+ title = {Type Label Framework for Bonded Force Fields in LAMMPS},
+ journal = {J. Phys. Chem. B},
+ year =    2024,
+ volume =  128,
+ number =  13,
+ pages =   {3282–-3297}
+}
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.8
+  ghost atom cutoff = 2.8
+  binsize = 1.4, bins = 23 23 23
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+WARNING: FENE bond too long: 0 1 2 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 9 10 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 17 18 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 25 26 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 33 34 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 41 42 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 49 50 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 57 58 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 65 66 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 73 74 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 81 82 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 89 90 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 97 98 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 105 106 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 113 114 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 121 122 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 129 130 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 137 138 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 145 146 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 153 154 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 161 162 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 169 170 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 177 178 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 185 186 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 193 194 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 201 202 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 209 210 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 217 218 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 225 226 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 233 234 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 2 3 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 10 11 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 18 19 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 26 27 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 34 35 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 42 43 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 50 51 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 58 59 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 66 67 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 74 75 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 82 83 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 90 91 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 98 99 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 106 107 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 114 115 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 122 123 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 130 131 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 138 139 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 146 147 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 154 155 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 162 163 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 170 171 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 178 179 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 186 187 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 194 195 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 202 203 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 210 211 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 218 219 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 226 227 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 234 235 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 3 4 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 11 12 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 19 20 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 27 28 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 35 36 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 43 44 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 51 52 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 59 60 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 67 68 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 75 76 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 83 84 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 91 92 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 99 100 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 107 108 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 115 116 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 123 124 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 131 132 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 139 140 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 147 148 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 155 156 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 163 164 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 171 172 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 179 180 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 187 188 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 195 196 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 203 204 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 211 212 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 219 220 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 227 228 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 235 236 1.5229999999999997 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 4 5 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 12 13 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 20 21 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 28 29 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 36 37 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 44 45 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 52 53 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 60 61 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 68 69 1.524 (src/MOLECULE/bond_fene.cpp:89)
+WARNING: FENE bond too long: 0 76 77 1.524 (src/MOLECULE/bond_fene.cpp:89)
+Per MPI rank memory allocation (min/avg/max) = 7.533 | 7.533 | 7.533 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+WARNING: Too many warnings: 420 vs 100. All future warnings will be suppressed (src/thermo.cpp:478)
+         0   0              0              67.998216      67.998216     -2.9760977    
+         1   0              0              67.998216      67.998216     -2.9760977    
+Loop time of 0.006496 on 1 procs for 1 steps with 480 atoms
+
+0.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+      67.9982160274807   67.9982160274807   67.9982160274807
+  Force two-norm initial, final = 5007.555 5007.555
+  Force max component initial, final = 457.2 457.2
+  Final line search alpha, max atom move = 2.0370135e-13 9.3132257e-11
+  Iterations, force evaluations = 1 31
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 3.8e-05    | 3.8e-05    | 3.8e-05    |   0.0 |  0.58
+Bond    | 0.005976   | 0.005976   | 0.005976   |   0.0 | 92.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.6e-05    | 5.6e-05    | 5.6e-05    |   0.0 |  0.86
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.000426   |            |       |  6.56
+
+Nlocal:            480 ave         480 max         480 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:            220 ave         220 max         220 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:              0 ave           0 max           0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 0
+Ave neighs/atom = 0
+Ave special neighs/atom = 4.5
+Neighbor list builds = 0
+Dangerous builds = 0
+
+# Set up time integration
+timestep        0.005
+
+# Temperature control
+variable        temp equal 2.0
+#t=5
+fix             1 all langevin ${temp} ${temp} 1.0 12345
+fix             1 all langevin 2 ${temp} 1.0 12345
+fix             1 all langevin 2 2 1.0 12345
+fix             2 all nve
+
+# Output settings
+thermo_style    custom step temp pe etotal press vol
+thermo          1000   # Print every 1000 steps (one timestep=0.005)
+
+# Equilibration run
+dump            eq_dump all custom 1000 equilibration.lammpstrj id type xu yu zu
+dump_modify     eq_dump sort id
+
+
+# Equilibration run
+run             50000
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+Per MPI rank memory allocation (min/avg/max) = 6.408 | 6.408 | 6.408 Mbytes
+   Step          Temp          PotEng         TotEng         Press          Volume    
+WARNING: Too many warnings: 14280 vs 100. All future warnings will be suppressed (src/thermo.cpp:478)
+         1   0              67.998216      67.998216     -2.9760977      32768        
+      1000   2.0083892      18.200525      21.206833      0.007489265    32768        
+      2000   2.1416133      18.242399      21.448126      0.0096973677   32768        
+      3000   2.0533893      18.254708      21.328375      0.011413527    32768        
+      4000   2.1056135      18.078537      21.230377      0.01292175     32768        
+      5000   2.0464507      18.012975      21.076256      0.021694767    32768        
+      6000   1.9704696      18.076667      21.026214     -0.0091604721   32768        
+      7000   2.0887606      18.065374      21.191988      0.0046023845   32768        
+      8000   2.0849781      18.061478      21.18243       0.0015052843   32768        
+      9000   1.9882755      17.974863      20.951063      0.0096099658   32768        
+     10000   1.9648743      18.081492      21.022663     -0.0071385763   32768        
+     11000   2.010981       18.006181      21.016368      0.0039484788   32768        
+     12000   1.8873973      18.06699       20.892187     -0.0075994522   32768        
+     13000   1.8545029      17.953348      20.729307      0.0031023353   32768        
+     14000   2.0184074      18.089591      21.110895      0.00043822683  32768        
+     15000   1.9452001      18.303875      21.215596      0.012416085    32768        
+     16000   1.9533968      18.1345        21.058491      0.011718232    32768        
+     17000   1.9364027      17.958049      20.856602      0.0082618361   32768        
+     18000   2.1017723      18.139007      21.285097      0.0085037427   32768        
+     19000   1.9162698      18.122345      20.990761     -0.011515935    32768        
+     20000   2.0842998      18.082605      21.202541     -0.015017518    32768        
+     21000   2.1209883      17.992903      21.167757     -0.0021022732   32768        
+     22000   1.9216234      17.991701      20.868131      0.0044351962   32768        
+     23000   2.1414583      18.089908      21.295404      0.0070747347   32768        
+     24000   2.0141985      18.017037      21.032041     -0.00130905     32768        
+     25000   2.0451857      17.891993      20.953381      0.016041699    32768        
+     26000   1.9464158      18.009891      20.923433      0.0063978696   32768        
+     27000   1.8905785      18.021738      20.851698      0.0047552552   32768        
+     28000   2.026563       18.034372      21.067883     -0.0010215876   32768        
+     29000   2.018275       18.147698      21.168803     -0.0030648277   32768        
+     30000   2.0729011      18.196969      21.299842      0.0034645261   32768        
+     31000   1.9571466      18.150907      21.080511     -0.00880632     32768        
+     32000   1.9042528      18.213939      21.064367     -0.0057044915   32768        
+     33000   2.0933634      18.120718      21.254222      0.0066936188   32768        
+     34000   2.0735447      18.090867      21.194705      0.00074178257  32768        
+     35000   2.1025052      18.102484      21.249672      0.015267755    32768        
+     36000   1.9529804      18.056567      20.979935      0.010480714    32768        
+     37000   2.0269144      18.144717      21.178755      0.0070514695   32768        
+     38000   1.9819323      18.152582      21.119287      0.010702945    32768        
+     39000   1.9766141      18.112487      21.071231     -0.0072646956   32768        
+     40000   2.1326706      17.967793      21.160134      0.0035804615   32768        
+     41000   2.0160247      18.013034      21.030771      0.0028560926   32768        
+     42000   1.9770293      18.181656      21.141022      0.0029773542   32768        
+     43000   2.0530642      18.025724      21.098905     -0.0042818156   32768        
+     44000   2.0628246      18.084524      21.172315     -0.0014422841   32768        
+     45000   2.040177       18.069426      21.123316     -0.0039318291   32768        
+     46000   2.093432       18.041736      21.175343     -0.0054883307   32768        
+     47000   2.1125037      18.156122      21.318276      0.0013642046   32768        
+     48000   1.951422       18.273764      21.194799     -0.0043565144   32768        
+     49000   2.0579721      18.083924      21.164451      0.0075554498   32768        
+     50000   2.0002224      18.109759      21.103842     -0.0023402045   32768        
+     50001   2.0112883      18.095919      21.106567     -0.002765578    32768        
+Loop time of 3.25339 on 1 procs for 50000 steps with 480 atoms
+
+Performance: 6639236.783 tau/day, 15368.604 timesteps/s, 7.377 Matom-step/s
+98.5% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.56934    | 0.56934    | 0.56934    |   0.0 | 17.50
+Bond    | 0.19686    | 0.19686    | 0.19686    |   0.0 |  6.05
+Neigh   | 1.1184     | 1.1184     | 1.1184     |   0.0 | 34.38
+Comm    | 0.14309    | 0.14309    | 0.14309    |   0.0 |  4.40
+Output  | 0.053323   | 0.053323   | 0.053323   |   0.0 |  1.64
+Modify  | 1.0252     | 1.0252     | 1.0252     |   0.0 | 31.51
+Other   |            | 0.1472     |            |       |  4.52
+
+Nlocal:            480 ave         480 max         480 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:            443 ave         443 max         443 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:           1247 ave        1247 max        1247 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1247
+Ave neighs/atom = 2.5979167
+Ave special neighs/atom = 4.5
+Neighbor list builds = 8492
+Dangerous builds = 0
+
+
+# Unfix and undump equilibration outputs
+
+undump          eq_dump
+
+reset_timestep 0
+
+# Change interaction parameters for production
+# pair_coeff      1 2 0.5 1.0  # Modify A-B interactions
+
+
+# #Compute properties
+# compute         rg_A type_A gyration
+# compute         rg_B type_B gyration
+# compute         rg_all all gyration
+
+# compute         msd_A type_A msd com yes
+# compute         msd_B type_B msd com yes
+compute         msd_all all msd com yes
+
+# compute         RDF all rdf 50 1 1 2 2 1 2 #new
+
+
+
+# # Start file output with headers
+#  print "Time MSD_A" file msd_A.dat
+#  print "Time MSD_B" file msd_B.dat
+
+print "Time MSD_all" file msd_all.dat #new
+Time MSD_all
+
+# print "Time Rg_A" file rg_A.dat
+# print "Time Rg_B" file rg_B.dat
+
+# print "Time Rg_all" file rg_all.dat #new
+
+# Use fix ave/time to compute time-averaged values for MSD and Rg
+# fix msd_avg_A type_A ave/time 100 1 100 c_msd_A[4] file msd_A.dat mode scalar
+ #fix msd_avg_B type_B ave/time 100 1 100 c_msd_B[4] file msd_B.dat mode scalar
+ fix msd_avg_all all ave/time 100 1 100 c_msd_all[4]  file msd_all.dat mode scalar#new
+
+# fix rg_avg_A type_A ave/time 100 1 100 c_rg_A file rg_A.dat
+# fix rg_avg_B type_B ave/time 100 1 100 c_rg_B file rg_B.dat
+# fix rg_avg_all all ave/time 100 1 100 c_rg_all file rg_all.dat  #new
+
+
+# Production run with single dump file
+
+dump prod_dump all custom 1000 production.lammpstrj id type xu yu zu
+dump_modify prod_dump sort id
+
+
+# RDF averaging for production
+#fix rdf_avg_prod all ave/time 100 1 100 c_RDF[*] file rdf_production.avg mode vector
+
+# Run production
+run 100000
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+Per MPI rank memory allocation (min/avg/max) = 6.793 | 6.793 | 6.793 Mbytes
+   Step          Temp          PotEng         TotEng         Press          Volume    
+         0   2.0112883      18.095919      21.106567     -0.002765578    32768        
+      1000   2.0466414      18.040134      21.1037        0.0093083506   32768        
+      2000   2.1478533      18.02269       21.237758      0.0044414762   32768        
+      3000   2.0646361      18.119671      21.210174     -0.0037274396   32768        
+      4000   2.0959879      18.090238      21.22767       0.0040658882   32768        
+      5000   1.9479572      18.173555      21.089404      0.0035163773   32768        
+      6000   2.0637034      18.021043      21.110149     -0.0046344057   32768        
+      7000   2.105558       17.949105      21.100862      0.0054201303   32768        
+      8000   2.0324257      17.988456      21.030743      0.0029479091   32768        
+      9000   2.0550006      17.984415      21.060494      0.0020350251   32768        
+     10000   2.0246815      18.111522      21.142218      0.0035951975   32768        
+     11000   1.9916888      18.06031       21.041619      0.0049945406   32768        
+     12000   2.0538609      17.975421      21.049794     -0.0036315403   32768        
+     13000   2.0789278      18.065216      21.177111     -0.0034603562   32768        
+     14000   2.0612804      17.869547      20.955026     -0.0009103923   32768        
+     15000   2.0044826      18.036314      21.036774      0.0095252702   32768        
+     16000   1.9652241      18.161429      21.103123      0.0033584894   32768        
+     17000   2.0559823      18.046655      21.124203      0.012113832    32768        
+     18000   2.0061672      17.972274      20.975255      0.011457325    32768        
+     19000   2.0158848      18.087465      21.104992     -0.0016335565   32768        
+     20000   1.9464573      18.129381      21.042985      0.014821396    32768        
+     21000   2.0999222      18.024886      21.168207      0.015114291    32768        
+     22000   1.881822       17.934155      20.751007     -0.0069361416   32768        
+     23000   2.0669555      17.980079      21.074053     -9.4905994e-05  32768        
+     24000   1.9125265      17.97154       20.834353      0.0026754083   32768        
+     25000   1.9897756      18.125719      21.104164     -0.011507319    32768        
+     26000   1.922142       18.093444      20.970651      0.014377005    32768        
+     27000   1.9995699      18.026267      21.019373     -0.0016929383   32768        
+     28000   1.9655062      18.06906       21.011177     -0.010371914    32768        
+     29000   2.1276958      17.969228      21.154122      0.010487955    32768        
+     30000   2.066969       18.120756      21.21475      -0.0095761501   32768        
+     31000   1.9987115      18.068804      21.060625      0.013096465    32768        
+     32000   1.9328595      17.99668       20.889929      0.0019888355   32768        
+     33000   1.9487145      18.212892      21.129874     -0.0037118183   32768        
+     34000   1.890006       18.177457      21.00656       0.0052199954   32768        
+     35000   2.0893179      17.952987      21.080434     -0.0086856126   32768        
+     36000   2.0240785      18.021241      21.051034     -0.0050244883   32768        
+     37000   2.0119121      18.056603      21.068184     -0.0010124619   32768        
+     38000   1.9756768      17.948048      20.905389      0.021033998    32768        
+     39000   1.958857       18.00036       20.932524     -0.0018029348   32768        
+     40000   1.9517108      17.896749      20.818216      0.0053459781   32768        
+     41000   2.035452       18.047748      21.094565      0.0013146555   32768        
+     42000   2.0034483      18.075042      21.073953     -0.013832165    32768        
+     43000   1.8282378      18.108591      20.845235      0.0090293335   32768        
+     44000   1.9899798      18.096097      21.074848      0.0084408442   32768        
+     45000   1.9151485      18.013934      20.880672      0.013445905    32768        
+     46000   2.018034       18.082046      21.102791     -0.0039841869   32768        
+     47000   1.9456697      18.046109      20.958533     -0.012666722    32768        
+     48000   1.9653653      18.026459      20.968365      0.0034891218   32768        
+     49000   2.0456178      17.964533      21.026567     -0.0017985383   32768        
+     50000   2.0536178      18.002527      21.076536      0.0022621871   32768        
+     51000   2.1780964      18.090929      21.351267      0.0022541112   32768        
+     52000   2.0320885      18.123497      21.16528      -0.0016275385   32768        
+     53000   2.009076       18.147486      21.154822      0.0098296475   32768        
+     54000   1.9884328      18.110281      21.086716      0.016296908    32768        
+     55000   2.0075879      17.970453      20.975562      0.024672135    32768        
+     56000   1.958911       18.041839      20.974084      0.015121908    32768        
+     57000   1.9932028      17.90554       20.889116     -0.0076945002   32768        
+     58000   1.9644204      18.099354      21.039846      0.00074497482  32768        
+     59000   1.9555835      18.026866      20.95413      -0.003708493    32768        
+     60000   1.9033474      17.991213      20.840287     -0.0043257077   32768        
+     61000   2.0264183      17.965222      20.998517      0.014297826    32768        
+     62000   1.9802557      18.030798      20.994993      0.0086849813   32768        
+     63000   2.0407444      18.131915      21.186655     -0.016214947    32768        
+     64000   1.9994176      18.103341      21.096219     -0.0029592758   32768        
+     65000   2.1027068      18.027782      21.175271      0.0045760958   32768        
+     66000   2.0066994      18.055668      21.059446     -0.010901076    32768        
+     67000   2.0605156      17.99357       21.077904     -0.0015316639   32768        
+     68000   2.0232845      18.007612      21.036215      0.0029605176   32768        
+     69000   2.0001651      18.15371       21.147708     -0.0004894373   32768        
+     70000   1.9978423      18.006254      20.996774      0.0025406791   32768        
+     71000   2.0385989      18.051353      21.10288      -0.0084661382   32768        
+     72000   2.0186374      17.889334      20.910982      0.01239349     32768        
+     73000   2.0302076      17.92459       20.963557      0.019772083    32768        
+     74000   2.0220967      18.174402      21.201228     -0.013292992    32768        
+     75000   1.9753414      17.928814      20.885653      0.011146101    32768        
+     76000   1.8551097      18.21961       20.996477     -0.002911837    32768        
+     77000   1.9383101      18.072225      20.973633     -0.0003312366   32768        
+     78000   2.0202747      18.073251      21.09735       0.0076062003   32768        
+     79000   1.9011033      18.110047      20.955761     -0.01263448     32768        
+     80000   2.0090183      17.965395      20.972644     -0.0011255341   32768        
+     81000   2.0540241      18.124536      21.199153     -0.0013357917   32768        
+     82000   1.9157214      17.987207      20.854803      0.010481603    32768        
+     83000   1.8923968      18.009694      20.842375      0.0014311645   32768        
+     84000   2.1771059      17.950676      21.209531     -0.0046728237   32768        
+     85000   1.9037325      18.123852      20.973501      0.0042708556   32768        
+     86000   2.082438       18.045672      21.162821      0.018557636    32768        
+     87000   2.0938174      18.009439      21.143622     -0.0045939689   32768        
+     88000   1.9568726      18.035703      20.964897     -0.0089533597   32768        
+     89000   1.9284756      18.042648      20.929335     -0.0069363229   32768        
+     90000   2.0373548      18.100141      21.149806     -0.01112695     32768        
+     91000   1.8284903      17.969495      20.706516     -0.0010303618   32768        
+     92000   1.8871266      18.065115      20.889907     -0.015430101    32768        
+     93000   2.1490518      18.227277      21.444139      0.016254814    32768        
+     94000   1.9682572      17.972267      20.918502      0.0045555437   32768        
+     95000   2.0080759      17.980551      20.986389     -0.0029271377   32768        
+     96000   2.0439069      18.01196       21.071433      0.0011398395   32768        
+     97000   2.0411904      17.950367      21.005774      0.007524174    32768        
+     98000   1.9786699      17.80105       20.762872      0.0057264089   32768        
+     99000   1.9062698      18.098168      20.951616      0.016391988    32768        
+    100000   2.0402281      17.959282      21.013249      0.0067747678   32768        
+Loop time of 6.72454 on 1 procs for 100000 steps with 480 atoms
+
+Performance: 6424230.293 tau/day, 14870.903 timesteps/s, 7.138 Matom-step/s
+97.4% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 1.2502     | 1.2502     | 1.2502     |   0.0 | 18.59
+Bond    | 0.38903    | 0.38903    | 0.38903    |   0.0 |  5.79
+Neigh   | 2.304      | 2.304      | 2.304      |   0.0 | 34.26
+Comm    | 0.27785    | 0.27785    | 0.27785    |   0.0 |  4.13
+Output  | 0.10258    | 0.10258    | 0.10258    |   0.0 |  1.53
+Modify  | 2.1056     | 2.1056     | 2.1056     |   0.0 | 31.31
+Other   |            | 0.2953     |            |       |  4.39
+
+Nlocal:            480 ave         480 max         480 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:            347 ave         347 max         347 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:           1615 ave        1615 max        1615 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1615
+Ave neighs/atom = 3.3645833
+Ave special neighs/atom = 4.5
+Neighbor list builds = 16824
+Dangerous builds = 0
+
+# Write final configuration
+write_data final_config.data
+System init for write_data ...
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+ 
+Total wall time: 0:00:10

@@ -120,7 +120,7 @@ def read_data(filename):
     return np.array(time_steps), np.array(msd_values)
 
 # Read data
-time_steps, msd_values = read_data('msd_16.dat')
+time_steps, msd_values = read_data('msd_24.dat')
 
 # Create subplots
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
