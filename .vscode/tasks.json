@@ -1,3 +1,28 @@
+// {
+//     "version": "2.0.0",
+//     "tasks": [
+//         {
+//             "label": "Run LAMMPS",
+//             "type": "shell",
+//             "command": "lmp",
+//             "args": [
+//                 "-in",
+//                 "${file}"
+//             ],
+//             "group": {
+//                 "kind": "build",
+//                 "isDefault": true
+//             },
+//             "presentation": {
+//                 "echo": true,
+//                 "reveal": "always",
+//                 "focus": false,
+//                 "panel": "shared"
+//             },
+//             "problemMatcher": []
+//         }
+//     ]
+// }
 {
     "version": "2.0.0",
     "tasks": [
@@ -17,7 +42,7 @@
                 "echo": true,
                 "reveal": "always",
                 "focus": false,
-                "panel": "shared"
+                "panel": "new"
             },
             "problemMatcher": []
         }

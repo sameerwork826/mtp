@@ -111,9 +111,9 @@ def write_polymer_data(filename, box_size, n_chains_a, n_chains_b, monomers_per_
 
 # Parameters
 box_size = [32.0, 32.0, 32.0]
-n_chains_a =82  # Number of type A chains
-n_chains_b =82 # Number of type B chains
-monomers_per_chain =20 # Monomers per chain
+n_chains_a =341  # Number of type A chains
+n_chains_b =341# Number of type B chains
+monomers_per_chain =12 # Monomers per chain
 
 # Generate the data file
-write_polymer_data("polymer_system_20_10.data", box_size, n_chains_a, n_chains_b, monomers_per_chain)
+write_polymer_data("polymer_system_12_25.data", box_size, n_chains_a, n_chains_b, monomers_per_chain)

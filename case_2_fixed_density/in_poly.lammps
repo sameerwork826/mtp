@@ -4,8 +4,11 @@
 units           lj
 atom_style      molecular
 boundary        p p p
-read_data       C:\Users\nande\Desktop\mtp\case_2_fixed_density\polymer_data\x_10\polymer_system_16_10_1.data
-# Force field definitions 
+read_data       C:\Users\nande\Desktop\mtp\case_2_fixed_density\poly_data\density_cons_x_10\polymer_system_16_10.data
+
+
+
+# Force field definition
 bond_style      fene
 bond_coeff      1 30.0 1.5 1.0 1.0 # k=30, r0=1.5, e=1, sigma=1
 
@@ -70,7 +73,7 @@ reset_timestep 0
 
 # compute         msd_A type_A msd com yes
 # compute         msd_B type_B msd com yes
-compute         msd_all all msd com yes
+compute         msd_16_10_1 all msd com yes
 
 
 # compute         RDF all rdf 50 1 1 2 2 1 2 #new
@@ -81,7 +84,7 @@ compute         msd_all all msd com yes
 #  print "Time MSD_A" file msd_A.dat
 #  print "Time MSD_B" file msd_B.dat
 
-print "Time MSD_all" file msd_all.dat #new
+print "Time msd_16_10_1" file msd_16_10_1.dat #new
 
 # print "Time Rg_A" file rg_A.dat
 # print "Time Rg_B" file rg_B.dat
@@ -91,7 +94,7 @@ print "Time MSD_all" file msd_all.dat #new
 # Use fix ave/time to compute time-averaged values for MSD and Rg
 #  fix msd_avg_A type_A ave/time 100 1 100 c_msd_A[4] file msd_A.dat mode scalar
 #  fix msd_avg_B type_B ave/time 100 1 100 c_msd_B[4] file msd_B.dat mode scalar
- fix msd_avg_all all ave/time 100 1 100 c_msd_all[4]  file msd_all.dat mode scalar#new
+ fix msd_avg_all all ave/time 100 1 100 c_msd_16_10_1[4]  file msd_16_10_1.dat mode scalar#new
 
 # fix rg_avg_A type_A ave/time 100 1 100 c_rg_A file rg_A.dat
 # fix rg_avg_B type_B ave/time 100 1 100 c_rg_B file rg_B.dat
