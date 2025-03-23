@@ -8,18 +8,18 @@ Loaded 1 plugins from C:\Users\nande\AppData\Local\LAMMPS 64-bit 27Jun2024 with 
 units           lj
 atom_style      molecular
 boundary        p p p
-read_data       C:\Users\nande\Desktop\mtp\case_2_fixed_density\polymer_data\x_10\polymer_system_8_10.data
+read_data       C:\Users\nande\Desktop\mtp\case_2_fixed_density\new_poly_data\density_cons_x_10\polymer_system_16_10.data
 Reading data file ...
   orthogonal box = (0 0 0) to (32 32 32)
   1 by 1 by 1 MPI processor grid
   reading atoms ...
-  3280 atoms
+  3264 atoms
   scanning bonds ...
   1 = max bonds/atom
   orthogonal box = (0 0 0) to (32 32 32)
   1 by 1 by 1 MPI processor grid
   reading bonds ...
-  2870 bonds
+  3060 bonds
 Finding 1-2 1-3 1-4 neighbors ...
   special bond factors lj:    0        0        0       
   special bond factors coul:  0        0        0       
@@ -28,8 +28,10 @@ Finding 1-2 1-3 1-4 neighbors ...
      4 = max # of 1-4 neighbors
      6 = max # of special neighbors
   special bonds CPU = 0.002 seconds
-  read_data CPU = 0.024 seconds
-# Force field definitions
+  read_data CPU = 0.032 seconds
+
+
+# Force field definition
 bond_style      fene
 bond_coeff      1 30.0 1.5 1.0 1.0 # k=30, r0=1.5, e=1, sigma=1
 
@@ -59,9 +61,9 @@ neigh_modify    every 1 delay 0 check yes
 
 # System groups
 group           type_A type 1
-1640 atoms in group type_A
+1632 atoms in group type_A
 group           type_B type 2
-1640 atoms in group type_B
+1632 atoms in group type_B
 
 # Energy minimization
 minimize        1.0e-4 1.0e-6 1000 10000
@@ -97,146 +99,45 @@ Neighbor list info ...
       pair build: half/bin/newton
       stencil: half/bin/3d
       bin: standard
-WARNING: FENE bond too long: 0 1 2 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 9 10 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 17 18 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 25 26 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 33 34 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 41 42 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 49 50 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 57 58 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 65 66 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 73 74 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 81 82 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 89 90 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 97 98 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 105 106 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 113 114 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 121 122 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 129 130 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 137 138 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 145 146 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 153 154 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 161 162 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 169 170 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 177 178 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 185 186 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 193 194 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 201 202 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 209 210 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 217 218 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 225 226 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 233 234 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 241 242 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 249 250 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 257 258 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 265 266 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 273 274 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 281 282 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 289 290 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 297 298 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 305 306 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 313 314 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 321 322 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 329 330 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 337 338 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 345 346 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 353 354 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 361 362 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 369 370 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 377 378 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 385 386 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 393 394 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 401 402 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 409 410 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 417 418 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 425 426 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 433 434 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 441 442 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 449 450 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 457 458 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 465 466 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 473 474 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 481 482 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 489 490 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 497 498 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 505 506 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 513 514 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 521 522 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 529 530 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 537 538 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 545 546 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 553 554 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 561 562 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 569 570 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 577 578 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 585 586 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 593 594 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 601 602 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 609 610 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 617 618 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 625 626 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 633 634 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 641 642 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 649 650 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 657 658 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 665 666 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 673 674 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 681 682 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 689 690 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 697 698 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 705 706 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 713 714 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 721 722 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 729 730 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 737 738 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 745 746 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 753 754 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 761 762 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 769 770 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 777 778 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 785 786 1.524 (src/MOLECULE/bond_fene.cpp:89)
-WARNING: FENE bond too long: 0 793 794 1.524 (src/MOLECULE/bond_fene.cpp:89)
-Per MPI rank memory allocation (min/avg/max) = 7.695 | 7.695 | 7.695 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 7.687 | 7.687 | 7.687 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
-WARNING: Too many warnings: 2870 vs 100. All future warnings will be suppressed (src/thermo.cpp:478)
-         0   0             -0.042955289    67.998216      67.955261     -20.351184    
-         1   0             -0.042955289    67.998216      67.955261     -20.351184    
-Loop time of 0.036714 on 1 procs for 1 steps with 3280 atoms
+         0   0             -0.1115272      26.175259      26.063732      5.6755626    
+        21   0             -0.057031502    18.941529      18.884497     -0.051587947  
+Loop time of 0.018271 on 1 procs for 21 steps with 3264 atoms
 
-0.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+85.5% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 Minimization stats:
-  Stopping criterion = linesearch alpha is zero
+  Stopping criterion = energy tolerance
   Energy initial, next-to-last, final = 
-      67.9552607388259   67.9552607388259   67.9552607388259
-  Force two-norm initial, final = 13090.072 13090.072
-  Force max component initial, final = 457.2 457.2
-  Final line search alpha, max atom move = 2.0370135e-13 9.3132257e-11
-  Iterations, force evaluations = 1 31
+      26.0637319434159   18.8850556297409   18.8844974796336
+  Force two-norm initial, final = 4256.8096 47.333043
+  Force max component initial, final = 210.65642 2.1079526
+  Final line search alpha, max atom move = 0.032787899 0.069115337
+  Iterations, force evaluations = 21 40
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 0.005253   | 0.005253   | 0.005253   |   0.0 | 14.31
-Bond    | 0.030292   | 0.030292   | 0.030292   |   0.0 | 82.51
-Neigh   | 0          | 0          | 0          |   0.0 |  0.00
-Comm    | 0.000238   | 0.000238   | 0.000238   |   0.0 |  0.65
+Pair    | 0.003294   | 0.003294   | 0.003294   |   0.0 | 18.03
+Bond    | 0.007081   | 0.007081   | 0.007081   |   0.0 | 38.76
+Neigh   | 0.00472    | 0.00472    | 0.00472    |   0.0 | 25.83
+Comm    | 0.000691   | 0.000691   | 0.000691   |   0.0 |  3.78
 Output  | 0          | 0          | 0          |   0.0 |  0.00
 Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 0.000931   |            |       |  2.54
+Other   |            | 0.002485   |            |       | 13.60
 
-Nlocal:           3280 ave        3280 max        3280 min
+Nlocal:           3264 ave        3264 max        3264 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:           1620 ave        1620 max        1620 min
+Nghost:           1700 ave        1700 max        1700 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:          16972 ave       16972 max       16972 min
+Neighs:           3975 ave        3975 max        3975 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 
-Total # of neighbors = 16972
-Ave neighs/atom = 5.1743902
-Ave special neighs/atom = 4.5
-Neighbor list builds = 0
+Total # of neighbors = 3975
+Ave neighs/atom = 1.2178309
+Ave special neighs/atom = 5.25
+Neighbor list builds = 6
 Dangerous builds = 0
 
 # Set up time integration
@@ -244,9 +145,9 @@ timestep        0.005
 
 # Temperature control
 variable        temp equal 2.0
-fix             1 all langevin ${temp} ${temp} 1.0 699483
-fix             1 all langevin 2 ${temp} 1.0 699483
-fix             1 all langevin 2 2 1.0 699483
+fix             1 all langevin ${temp} ${temp} 1.0 3
+fix             1 all langevin 2 ${temp} 1.0 3
+fix             1 all langevin 2 2 1.0 3
 fix             2 all nve
 
 # Output settings
@@ -261,9 +162,283 @@ dump_modify     eq_dump sort id
 # Equilibration run
 run             50000
 Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
-Per MPI rank memory allocation (min/avg/max) = 6.57 | 6.57 | 6.57 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 6.562 | 6.562 | 6.562 Mbytes
    Step    
-WARNING: Too many warnings: 97580 vs 100. All future warnings will be suppressed (src/thermo.cpp:478)
-         1 
-ERROR on proc 0: Bad FENE bond (src/MOLECULE/bond_fene.cpp:91)
-Last command: run             50000
+        21 
+      1000 
+      2000 
+      3000 
+      4000 
+      5000 
+      6000 
+      7000 
+      8000 
+      9000 
+     10000 
+     11000 
+     12000 
+     13000 
+     14000 
+     15000 
+     16000 
+     17000 
+     18000 
+     19000 
+     20000 
+     21000 
+     22000 
+     23000 
+     24000 
+     25000 
+     26000 
+     27000 
+     28000 
+     29000 
+     30000 
+     31000 
+     32000 
+     33000 
+     34000 
+     35000 
+     36000 
+     37000 
+     38000 
+     39000 
+     40000 
+     41000 
+     42000 
+     43000 
+     44000 
+     45000 
+     46000 
+     47000 
+     48000 
+     49000 
+     50000 
+     50021 
+Loop time of 55.2067 on 1 procs for 50000 steps with 3264 atoms
+
+Performance: 391256.993 tau/day, 905.687 timesteps/s, 2.956 Matom-step/s
+99.5% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 21.128     | 21.128     | 21.128     |   0.0 | 38.27
+Bond    | 1.6371     | 1.6371     | 1.6371     |   0.0 |  2.97
+Neigh   | 22.578     | 22.578     | 22.578     |   0.0 | 40.90
+Comm    | 0.94388    | 0.94388    | 0.94388    |   0.0 |  1.71
+Output  | 0.28478    | 0.28478    | 0.28478    |   0.0 |  0.52
+Modify  | 7.9453     | 7.9453     | 7.9453     |   0.0 | 14.39
+Other   |            | 0.6897     |            |       |  1.25
+
+Nlocal:           3264 ave        3264 max        3264 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:           1785 ave        1785 max        1785 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:          37923 ave       37923 max       37923 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 37923
+Ave neighs/atom = 11.618566
+Ave special neighs/atom = 5.25
+Neighbor list builds = 9381
+Dangerous builds = 0
+
+
+# Unfix and undump equilibration outputs
+
+undump          eq_dump
+
+reset_timestep 0
+
+# Change interaction parameters for production
+# pair_coeff      1 2 0.5 1.0  # Modify A-B interactions
+
+
+#Compute properties
+# compute         rg_A type_A gyration
+# compute         rg_B type_B gyration
+# compute         rg_all all gyration
+
+# compute         msd_A type_A msd com yes
+# compute         msd_B type_B msd com yes
+compute         msd_12_10_2 all msd com yes
+
+
+# compute         RDF all rdf 50 1 1 2 2 1 2 #new
+
+
+
+# # Start file output with headers
+#  print "Time MSD_A" file msd_A.dat
+#  print "Time MSD_B" file msd_B.dat
+
+print "Time msd_12_10_1" file msd_12_10_2.dat #new
+Time msd_12_10_1
+
+# print "Time Rg_A" file rg_A.dat
+# print "Time Rg_B" file rg_B.dat
+
+# print "Time Rg_all" file rg_all.dat #new
+
+# Use fix ave/time to compute time-averaged values for MSD and Rg
+#  fix msd_avg_A type_A ave/time 100 1 100 c_msd_A[4] file msd_A.dat mode scalar
+#  fix msd_avg_B type_B ave/time 100 1 100 c_msd_B[4] file msd_B.dat mode scalar
+ fix msd_avg_all all ave/time 100 1 100 c_msd_12_10_2[4]  file msd_12_10_2.dat mode scalar#new
+
+# fix rg_avg_A type_A ave/time 100 1 100 c_rg_A file rg_A.dat
+# fix rg_avg_B type_B ave/time 100 1 100 c_rg_B file rg_B.dat
+# fix rg_avg_all all ave/time 100 1 100 c_rg_all file rg_all.dat  #new
+
+
+# Production run with single dump file
+
+dump prod_dump all custom 1000 production.lammpstrj id type x y z
+dump_modify prod_dump sort id
+
+
+# RDF averaging for production
+# fix rdf_avg_prod all ave/time 100 1 100 c_RDF[*] file rdf_production.avg mode vector
+
+# Run production
+run 100000
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+Per MPI rank memory allocation (min/avg/max) = 6.939 | 6.939 | 6.939 Mbytes
+   Step    
+         0 
+      1000 
+      2000 
+      3000 
+      4000 
+      5000 
+      6000 
+      7000 
+      8000 
+      9000 
+     10000 
+     11000 
+     12000 
+     13000 
+     14000 
+     15000 
+     16000 
+     17000 
+     18000 
+     19000 
+     20000 
+     21000 
+     22000 
+     23000 
+     24000 
+     25000 
+     26000 
+     27000 
+     28000 
+     29000 
+     30000 
+     31000 
+     32000 
+     33000 
+     34000 
+     35000 
+     36000 
+     37000 
+     38000 
+     39000 
+     40000 
+     41000 
+     42000 
+     43000 
+     44000 
+     45000 
+     46000 
+     47000 
+     48000 
+     49000 
+     50000 
+     51000 
+     52000 
+     53000 
+     54000 
+     55000 
+     56000 
+     57000 
+     58000 
+     59000 
+     60000 
+     61000 
+     62000 
+     63000 
+     64000 
+     65000 
+     66000 
+     67000 
+     68000 
+     69000 
+     70000 
+     71000 
+     72000 
+     73000 
+     74000 
+     75000 
+     76000 
+     77000 
+     78000 
+     79000 
+     80000 
+     81000 
+     82000 
+     83000 
+     84000 
+     85000 
+     86000 
+     87000 
+     88000 
+     89000 
+     90000 
+     91000 
+     92000 
+     93000 
+     94000 
+     95000 
+     96000 
+     97000 
+     98000 
+     99000 
+    100000 
+Loop time of 120.807 on 1 procs for 100000 steps with 3264 atoms
+
+Performance: 357595.424 tau/day, 827.767 timesteps/s, 2.702 Matom-step/s
+99.4% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 48.2       | 48.2       | 48.2       |   0.0 | 39.90
+Bond    | 3.215      | 3.215      | 3.215      |   0.0 |  2.66
+Neigh   | 49.689     | 49.689     | 49.689     |   0.0 | 41.13
+Comm    | 2.3478     | 2.3478     | 2.3478     |   0.0 |  1.94
+Output  | 0.59445    | 0.59445    | 0.59445    |   0.0 |  0.49
+Modify  | 15.422     | 15.422     | 15.422     |   0.0 | 12.77
+Other   |            | 1.339      |            |       |  1.11
+
+Nlocal:           3264 ave        3264 max        3264 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:           2835 ave        2835 max        2835 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:          50857 ave       50857 max       50857 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 50857
+Ave neighs/atom = 15.581189
+Ave special neighs/atom = 5.25
+Neighbor list builds = 18778
+Dangerous builds = 0
+
+# Write final configuration
+write_data final_config.data
+System init for write_data ...
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+WARNING: Not all mixed pair coeffs generated from mixing. Use write_data with 'pair ij' option to store all pair coeffs. (src/write_data.cpp:368)
+Total wall time: 0:02:55

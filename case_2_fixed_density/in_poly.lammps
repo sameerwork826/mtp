@@ -4,8 +4,7 @@
 units           lj
 atom_style      molecular
 boundary        p p p
-read_data       C:\Users\nande\Desktop\mtp\case_2_fixed_density\poly_data\density_cons_x_10\polymer_system_16_10.data
-
+read_data       C:\Users\nande\Desktop\mtp\case_2_fixed_density\new_poly_data\density_cons_x_10\polymer_system_32_10.data
 
 
 # Force field definition
@@ -17,7 +16,7 @@ pair_style      lj/cut 2.5 # Cutoff distance
 pair_modify     shift yes # Shift LJ potential to 0 at cutoff
 
 # Initial interaction parameters (equilibration)
-#pair_coeff I J epsilon sigma 
+#pair_coeff I J epsilon sigma   
 pair_coeff      * * 1.0 1.0  # A-A interactions
 # pair_coeff      2 2 1.0 1.0  # B-B interactions
 # pair_coeff      1 2 1.0 1.0  # A-B interactions
@@ -40,7 +39,7 @@ timestep        0.005
 
 # Temperature control
 variable        temp equal 2.0
-fix             1 all langevin ${temp} ${temp} 1.0 699483
+fix             1 all langevin ${temp} ${temp} 1.0 4 #seed change here
 fix             2 all nve
 
 # Output settings
@@ -73,7 +72,7 @@ reset_timestep 0
 
 # compute         msd_A type_A msd com yes
 # compute         msd_B type_B msd com yes
-compute         msd_16_10_1 all msd com yes
+compute         msd_12_10_4 all msd com yes #change file name here, 4 files for 4 seeds
 
 
 # compute         RDF all rdf 50 1 1 2 2 1 2 #new
@@ -84,7 +83,7 @@ compute         msd_16_10_1 all msd com yes
 #  print "Time MSD_A" file msd_A.dat
 #  print "Time MSD_B" file msd_B.dat
 
-print "Time msd_16_10_1" file msd_16_10_1.dat #new
+print "Time msd_12_10_4" file msd_12_10_4.dat #here too
 
 # print "Time Rg_A" file rg_A.dat
 # print "Time Rg_B" file rg_B.dat
@@ -94,7 +93,7 @@ print "Time msd_16_10_1" file msd_16_10_1.dat #new
 # Use fix ave/time to compute time-averaged values for MSD and Rg
 #  fix msd_avg_A type_A ave/time 100 1 100 c_msd_A[4] file msd_A.dat mode scalar
 #  fix msd_avg_B type_B ave/time 100 1 100 c_msd_B[4] file msd_B.dat mode scalar
- fix msd_avg_all all ave/time 100 1 100 c_msd_16_10_1[4]  file msd_16_10_1.dat mode scalar#new
+ fix msd_avg_all all ave/time 100 1 100 c_msd_12_10_4[4]  file msd_12_10_4.dat mode scalar#here too same 
 
 # fix rg_avg_A type_A ave/time 100 1 100 c_rg_A file rg_A.dat
 # fix rg_avg_B type_B ave/time 100 1 100 c_rg_B file rg_B.dat
@@ -115,4 +114,3 @@ run 100000
                         
 # Write final configuration
 write_data final_config.data
- 
