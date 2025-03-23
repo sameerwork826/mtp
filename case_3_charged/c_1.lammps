@@ -37,12 +37,12 @@ minimize        1.0e-4 1.0e-6 1000 10000
 timestep        0.005
 
 # Temperature control
-variable        temp equal 1.0
-fix             1 all langevin ${temp} ${temp} 100.0 699483
+variable        temp equal 2.0
+fix             1 all langevin ${temp} ${temp} 2.0 1
 fix             2 all nve
 
 # Output settings
-thermo_style    custom step 
+thermo_style    custom step pe ke temp press
 thermo          1000
 
 
