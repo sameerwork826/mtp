@@ -52,7 +52,7 @@ def write_polymer_data(filename, box_size, n_chains_a, n_chains_b, monomers_per_
             atom_types[atom_idx] = 1  # Type A
             
             # For Chain A: +1 for every 3rd atom (index 1, 4, 7, ...), others uncharged
-            charges[atom_idx] = 1.0 if monomer % 3 == 1 else 0.0
+            charges[atom_idx] = 2.0 if monomer % 3 == 1 else 0.0
                 
             atom_idx += 1
         chain_idx += 1
@@ -79,7 +79,7 @@ def write_polymer_data(filename, box_size, n_chains_a, n_chains_b, monomers_per_
             atom_types[atom_idx] = 2  # Type B
             
             # For Chain B: -1 for every 3rd atom (index 1, 4, 7, ...), others uncharged
-            charges[atom_idx] = -1.0 if monomer % 3 == 1 else 0.0
+            charges[atom_idx] = -2.0 if monomer % 3 == 1 else 0.0
                 
             atom_idx += 1
         chain_idx += 1
@@ -125,9 +125,9 @@ def write_polymer_data(filename, box_size, n_chains_a, n_chains_b, monomers_per_
 
 # Parameters
 box_size = [32.0, 32.0, 32.0]
-n_chains_a = int(104/2) # Number of type A chains
-n_chains_b = int(104/2)  # Number of type B chains
-monomers_per_chain = 32 # Monomers per chain
+n_chains_a = int(280/2) # Number of type A chains
+n_chains_b = int(280/2)  # Number of type B chains
+monomers_per_chain = 12 # Monomers per chain
 
 # Generate the data file
-write_polymer_data("ps_c_5_32.data", box_size, n_chains_a, n_chains_b, monomers_per_chain)
+write_polymer_data("ps_c_10_12.data", box_size, n_chains_a, n_chains_b, monomers_per_chain)

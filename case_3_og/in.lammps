@@ -3,7 +3,7 @@
 units           lj
 atom_style      full
 boundary        p p p
-read_data       C:\Users\nande\Desktop\mtp\case_3_og\data_files\ps_c_5_12.data
+read_data       C:\Users\nande\Desktop\mtp\case_3_og\data_files\charge_2\ps_c_10_12.data
 
 # Force field definitions 
 bond_style      fene
@@ -55,8 +55,6 @@ reset_timestep 0
 
 # Ready for production run 
 
-#Compute RDFs between different types
-compute         rdf_all all rdf 100 1 2
 
 # Compute gyration
 compute     rg_all all gyration
@@ -68,7 +66,6 @@ compute         msd_all all msd com yes
 
 # #RG output
 fix             rg_avg_all all ave/time 100 1 100 c_rg_all file rg_all_12_1.dat
-# # Coulombic data
 # # MSD for diffusion
 fix             msd_avg_all all ave/time 50 1 50 c_msd_all[4] file msd_all_12_1.dat mode scalar
 
