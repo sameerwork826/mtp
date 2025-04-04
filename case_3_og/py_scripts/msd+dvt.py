@@ -97,8 +97,8 @@ def plot_msd_log(directory, system_sizes, plot_title="Mean Square Displacement")
     """Plot average MSD for multiple system sizes on log scale axes"""
     plt.figure(figsize=(10, 8))
     
-    colors = ['blue', 'red', 'green', 'purple']  # Colors for different system sizes
-    markers = ['o', 's', '^', 'D']  # Differe system sizes
+    colors = ['blue', 'red', 'green', 'purple','yellow','orange']  # Colors for different system sizes
+    markers = ['o', 's', '^', 'D','>','<']  # Different markers for different system sizes
     
     for i, size in enumerate(system_sizes):
         time, avg_msd, std_msd = load_and_average_msd(directory, size)
@@ -177,7 +177,7 @@ if __name__ == "__main__":
     data_directory = "."  # Current directory, change if needed
     
     # Define the system sizes you want to analyze
-    system_sizes = [12, 16, 20,28]
+    system_sizes = [12, 16, 20,24,28,32]
     
     # Create separate normal and log plots
     plot_msd_normal(data_directory, system_sizes)

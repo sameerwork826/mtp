@@ -232,7 +232,7 @@ if __name__ == "__main__":
     data_directory = "."  # Current directory, change if needed
     
     # Define the system sizes you want to analyze
-    system_sizes = [12, 16, 20,28]
+    system_sizes = [12, 16, 20,24,28,32]
     
     # Analyze diffusion coefficient vs. system size
     sizes, diffusion_coeffs, diffusion_errors = analyze_diffusion_vs_size(data_directory, system_sizes)

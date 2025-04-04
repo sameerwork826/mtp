@@ -65,9 +65,9 @@ compute         msd_all all msd com yes
 # ---- OUTPUT FILES ----
 
 # #RG output
-fix             rg_avg_all all ave/time 100 1 100 c_rg_all file rg_all_12_1.dat
+fix             rg_avg_all all ave/time 100 1 100 c_rg_all file rg_all.dat
 # # MSD for diffusion
-fix             msd_avg_all all ave/time 50 1 50 c_msd_all[4] file msd_all_12_1.dat mode scalar
+fix             msd_avg_all all ave/time 50 1 50 c_msd_all[4] file msd_all.dat mode scalar
 
 # ---- PRODUCTION RUN ----
 dump            prod_dump all custom 1000 production.lammpstrj id type q x y z 
