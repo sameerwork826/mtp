@@ -5,10 +5,10 @@ setlocal EnableDelayedExpansion
 :: Place this script in the same directory as your LAMMPS executable
 
 :: Original LAMMPS input file
-set ORIGINAL_FILE=C:\Users\nande\Desktop\mtp\in.lammps
+set ORIGINAL_FILE=C:\Users\nande\Desktop\mtp\in_poly.lammps
 
 :: Define the base path for data files
-set DATA_PATH=C:\Users\nande\Desktop\mtp\case_3_og\data_files\charge_1
+set DATA_PATH=C:\Users\nande\Desktop\mtp\case_1_only_dn\data_files
 
 :: Define random seeds to use
 set SEED1=12345
@@ -38,7 +38,7 @@ for %%s in (%SIZES%) do (
         copy "%ORIGINAL_FILE%" "!NEW_FILE!" > nul
         
         :: Update the data file path - using delayed expansion for variables
-        powershell -Command "(Get-Content '!NEW_FILE!') -replace 'read_data\s+.*\\ps_c_5_\d+\.data', 'read_data %DATA_PATH%\ps_c_5_%%s.data' | Set-Content '!NEW_FILE!'"
+        powershell -Command "(Get-Content '!NEW_FILE!') -replace 'read_data\s+.*\\polymer_system_\d+\.data', 'read_data %DATA_PATH%\polymer_system_%%s.data' | Set-Content '!NEW_FILE!'"
         
         :: Update the langevin thermostat fix with the new seed
         powershell -Command "(Get-Content '!NEW_FILE!') -replace 'fix\s+1\s+all\s+langevin\s+\${temp}\s+\${temp}\s+\d+\.\d+\s+\d+', 'fix 1 all langevin ${temp} ${temp} 2.0 !CURRENT_SEED!' | Set-Content '!NEW_FILE!'"
